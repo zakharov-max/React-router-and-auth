@@ -22,30 +22,21 @@ export const Login = props => {
 
   return (
     <Layout>
-      <div>
-        <form onSubmit={e => handleSubmit(e)}>
-          <label for="uname">
-            <b>Username</b>
-          </label>
-          <input
-            type="text"
-            placeholder="Enter Username"
-            name="name"
-            required
-          />
-
-          <label for="psw">
-            <b>Password</b>
-          </label>
-          <input
-            type="password"
-            placeholder="Enter Password"
-            name="password"
-            required
-          />
-
-          <button type="submit">Login</button>
+      <div style={{margin:" 0 auto", width: "50%"}}>
+        <form  onSubmit={e => handleSubmit(e)}>
+          <div className="form-row">
+            <div className="form-group col-md-6">
+              <label>Login</label>
+              <input type="text" className="form-control" name={"name"}/>
+            </div>
+            <div className="form-group col-md-6">
+              <label>Password</label>
+              <input type="password" className="form-control" name={"password"}/>
+            </div>
+          </div>
+          <button type="submit" className="btn btn-primary">Sign in</button>
         </form>
+
       </div>
     </Layout>
   );
