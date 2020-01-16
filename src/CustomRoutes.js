@@ -9,11 +9,3 @@ export const PrivateRoute = ({ component: Component, ...children }) => (
             : <Redirect to='/login' />
     )} />
 )
-
-export const CustomRoute = ({ component: Component, redirect, ...children }) => (
-    <Route {...children} render={(props) => (
-        auth.check()
-            ? <Component {...props} />
-            : <Redirect to={redirect} />
-    )} />
-)
