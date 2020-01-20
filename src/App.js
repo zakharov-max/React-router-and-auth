@@ -4,9 +4,7 @@ import {Home} from "./components/Home/home.js";
 import {Login} from "./components/Login/login.js";
 import {News} from "./components/News/news.js";
 import {Settings} from "./components/Settings/settings.js";
-import {PrivateRoute, CustomRoute} from "./CustomRoutes";
-
-
+import {PrivateRoute} from "./CustomRoutes";
 
 function App() {
     return (
@@ -16,12 +14,8 @@ function App() {
             <Route path="/login" component={Login}/>
             <Route path="/news" component={News}/>
             <PrivateRoute path="/settings" component={Settings}/>
-            <CustomRoute path="/test" component={Settings} redirect={"/home"} />
         </Switch>
     );
 }
-
-
-
 
 export default App;
