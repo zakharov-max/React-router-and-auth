@@ -1,29 +1,28 @@
 import React from "react";
-import { auth } from "./../../auth";
+import { signIn } from "../../api";
+import history from "../../history";
 import { Layout } from "../layout";
 import "./login.css";
 
 export const Login = props => {
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
 
     let username = e.target.name.value;
     let password = e.target.password.value;
 
-    if (username === "admin" && password === "12345") {
-      auth.set(true);
-      props.history.push("/home");
+    const result = await signIn(username, password);
+    if (result) {
+      history.push("/home");
     } else {
-      alert("Login error");
+      alert("Check your username or password");
     }
-
-    e.target.reset();
   };
 
   return (
     <Layout>
       <div>
-        <form onSubmit={e => handleSubmit(e)}>
+        <form onSubmit={handleSubmit}>
           <label for="uname">
             <b>Username</b>
           </label>

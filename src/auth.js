@@ -6,5 +6,8 @@ export const auth = {
   check: () => {
     const item = localStorage.getItem(token);
     return item && item === "true";
+  },
+  delToken: () => {
+    localStorage.removeItem(token);
   }
 };

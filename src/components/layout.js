@@ -1,91 +1,51 @@
 import React from "react";
+import history from "../history";
 import { Link } from "react-router-dom";
+import { auth } from "../auth";
 
 export const Layout = props => {
+  const isAuthenticated = auth.check();
+
+  const logout = () => {
+    auth.delToken();
+    history.push("/login");
+  };
+
   return (
     <>
-      <header>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light sticky-top">
+      <header className="sticky-top">
+        <nav className="navbar navbar-light bg-light">
           <Link className="navbar-brand" to="/">
             Home
           </Link>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item ">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
+          <ul className="list-group list-group-horizontal-sm">
+            <li className="list-group-item">
+              <Link to="/">Home</Link>
+            </li>
+            {isAuthenticated && (
+              <>
+                <li className="list-group-item">
+                  <Link to="/news">News</Link>
+                </li>
+                <li className="list-group-item">
+                  <Link to="/settings">Settings</Link>
+                </li>
+              </>
+            )}
+
+            {isAuthenticated ? (
+              <li className="list-group-item">
+                <Link onClick={logout}>Logout</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
+            ) : (
+              <li className="list-group-item">
+                <Link to="/login">Login</Link>
               </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/news">
-                  News
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/settings">
-                  Settings
-                </Link>
-              </li>
-            </ul>
-          </div>
+            )}
+          </ul>
         </nav>
       </header>
       <div className={"container "}>{props.children}</div>
-      <footer>
-        <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-bottom">
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
-            <ul className="navbar-nav">
-              <li className="nav-item ">
-                <Link className="nav-link" to="/">
-                  Home
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/login">
-                  Login
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/news">
-                  News
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link className="nav-link" to="/settings">
-                  Settings
-                </Link>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </footer>
     </>
   );
 };
